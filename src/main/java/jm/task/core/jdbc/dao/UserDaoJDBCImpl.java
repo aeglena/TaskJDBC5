@@ -2,7 +2,6 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +14,7 @@ public class UserDaoJDBCImpl implements UserDao {
         Util util = new Util();
         Connection connection = util.con();
         try {
-            String SQL = "CREATE TABLE IF NOT EXISTS users (Id INT PRIMARY KEY AUTO_INCREMENT, FirstName VARCHAR(50), LastName VARCHAR(50), Age SMALLINT )";
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(SQL);
+            connection.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS users (Id INT PRIMARY KEY AUTO_INCREMENT, FirstName VARCHAR(50), LastName VARCHAR(50), Age SMALLINT )");
         } catch (SQLException e) {
             System.out.println("Проблема с SQL");
         } finally {
@@ -35,9 +32,7 @@ public class UserDaoJDBCImpl implements UserDao {
         Util util = new Util();
         Connection connection = util.con();
         try {
-            String SQL = "DROP TABLE IF EXISTS users";
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(SQL);
+            connection.createStatement().executeUpdate("DROP TABLE IF EXISTS users");
         } catch (SQLException e) {
             System.out.println("Проблема с SQL");
         } catch (Exception e) {
@@ -57,10 +52,7 @@ public class UserDaoJDBCImpl implements UserDao {
         Util util = new Util();
         Connection connection = util.con();
         try {
-            Statement statement = null;
-            String SQL = String.format("INSERT INTO users (FirstName, LastName, Age) VALUES ('%s', '%s', %d)", name, lastName, age);
-            statement = connection.createStatement();
-            statement.executeUpdate(SQL);
+            connection.createStatement().executeUpdate(String.format("INSERT INTO users (FirstName, LastName, Age) VALUES ('%s', '%s', %d)", name, lastName, age));
         } catch (SQLException e) {
             System.out.println("Проблема с SQL");
         } catch (Exception e) {
@@ -80,10 +72,7 @@ public class UserDaoJDBCImpl implements UserDao {
         Util util = new Util();
         Connection connection = util.con();
         try {
-            Statement statement = null;
-            String SQL = String.format("DELETE FROM users WHERE Id = %d", id);
-            statement = connection.createStatement();
-            statement.executeUpdate(SQL);
+            connection.createStatement().executeUpdate(String.format("DELETE FROM users WHERE Id = %d", id));
         } catch (SQLException e) {
             System.out.println("Проблема с SQL");
         } catch (Exception e) {
@@ -104,10 +93,7 @@ public class UserDaoJDBCImpl implements UserDao {
         Connection connection = util.con();
         List<User> listuser = new ArrayList<>();
         try {
-            Statement statement = null;
-            String SQL = "SELECT * FROM users";
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SQL);
+            ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM users");
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("FirstName");
@@ -137,10 +123,7 @@ public class UserDaoJDBCImpl implements UserDao {
         Util util = new Util();
         Connection connection = util.con();
         try {
-            Statement statement = null;
-            String SQL = "DELETE FROM users";
-            statement = connection.createStatement();
-            statement.executeUpdate(SQL);
+            connection.createStatement().executeUpdate("DELETE FROM users");
         } catch (SQLException e) {
             System.out.println("Проблема с SQL");
         } catch (Exception e) {
