@@ -1,17 +1,15 @@
 package jm.task.core.jdbc.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 @Entity
-@Table (name = "user")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id",unique=true, nullable = false)
-    private int id;
+    @Column(name = "id", nullable = false)
+    private long id;
 
     @Column
     private String name;
@@ -32,7 +30,7 @@ public class User {
         this.age = age;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -64,5 +62,7 @@ public class User {
         this.age = age;
     }
 
-    public String toString() { return String.format("%s %s %d", name, lastName, age); }
+    public String toString() {
+        return String.format("%s %s %d", name, lastName, age);
+    }
 }
